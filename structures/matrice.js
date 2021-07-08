@@ -29,7 +29,7 @@ let matrice = (n,p)=>{
 console.log('ma matrice', matrice(3,2));
 
 
-// On crée une fonction qui crée un vecteur
+// On crée une fonction qui crée un vecteur (le nombre de lignes du vecteur doit être égal au nombre de colonnes de la matrice)
 let vecteur = (p)=>{
   let result = [];
   for (k = 1; k < p+1; k++){
@@ -49,15 +49,15 @@ let produitMatriciel = (n,p) =>{
 
   let produit = [];
   for (i = 0 ; i < n ; i++){
-    let row = [];
+    let row = '';
     for (j = 0; j < p; j++){
       let column = maMatrice[i][j] + ' * ' + monVecteur[j];
       complexCounter++
-      if (j <p-1){
+      if (j < p-1){
         column = column + ' + ' ;
         complexCounter++ ;
       }
-      row.push(column)
+      row = row.concat(column)
     }
     produit.push(row);
   }
@@ -65,6 +65,6 @@ let produitMatriciel = (n,p) =>{
 }
 
 // TODO: meilleur rendu du produit
-console.log( produitMatriciel(3,5), "complexité: 0(n*p) et nombre d'opérations: ", complexCounter)
+console.log( 'mon produit matriciel:', produitMatriciel(3,5), "complexité: 0(n*p) et nombre d'opérations: ", complexCounter)
 
 // Complexité est plutôt : O(n*p)  (on boucle 2 fois, pour les lignes et les colonnes)
