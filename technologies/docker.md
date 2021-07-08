@@ -17,4 +17,8 @@ La taille d'une image docker est la somme de toutes ses couches (layers). On va 
 
 ## Citez 3 techniques pour réduire la surface d'attaque du docker daemon
 
-Le docker daemon écoute les requêtes faites à l'API Docker et gère les objets Docker (images, containers, réseaux, volumes)
+Le docker daemon écoute les requêtes faites à l'API Docker et gère les objets Docker (images, containers, réseaux, volumes de stockage).
+
+- Utiliser le protocole SSH pour communiquer avec le docker daemon : de base la communication se fait localement ou via TCP. Ajoute une couche de sécurité et nécessite la clé SSH pour communiquer avec le serveur.
+- Il faut s'assurer que les containers n'est pas le droit d'acquérir de nouveau privilèges au sein de l'environnement Docker (configuration "no-new-privileges": true dans la configurations du Daemon). Cela garantit que le container n'obtiendra pas de nouveaux privilèges. Seuls les users en qui on a confiance doivent pouvoir contrôler le docker Daemon.
+- Activer l'option qui permet le remappage des noms utilisateurs. Cela permet aux processus s'exécutant dans un conteneur de s'exécuter en tant que root tout en étant remappé vers un utilisateur disposant de moins de droits sur l'hôte. Il faut modifier l'option userns-remap dans le fichier de configuration. En utilisant "default", Docker génère un utilisateur dockermap vers lequel seront remappés les utilisateurs du conteneur.
