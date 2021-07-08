@@ -28,7 +28,7 @@ Subject.prototype = {
       }
     })
   },
-  // enfin, la méthode qui envoie une 'notification' et déclenche toutes les fonctions subscribed à notre sujet
+  // enfin, la méthode qui déclenche toutes les fonctions subscribed à notre sujet
   fire: function()
   {
     //on déclenche toutes les fonctions présentes dans notre liste d'oservateurs
@@ -38,10 +38,30 @@ Subject.prototype = {
   }
 }
 
+// Test
+// On instancie notre sujet 
+const subject = new Subject();
 
 // Maintenant nous allons créer des fonctions qui seront observatrices
-
-let testObservateur1 = ()=> {
-  console.log
+let testObserver1 = () => {
+  console.log('Observateur 1 répond')
 }
 
+let testObserver2 = () => {
+  console.log('Observateur 2 répond à la méthode fire du subject')
+}
+
+// On oublie pas de les ajouter à la liste des observateurs avec la méthode subscribe du sujet
+subject.subscribe(testObserver1);
+subject.subscribe(testObserver2);
+
+// On appelle la méthode fire pour voir si les observateurs réagissent bien
+
+subject.fire();
+
+// On teste la méthode unsubscribe
+subject.unsubscribe(testObserver2);
+
+subject.fire();
+
+// ok

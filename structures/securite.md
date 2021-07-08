@@ -12,6 +12,7 @@ malloc permet d'allouer de la mémoire
 sizeof donne la quantité de stockage nécessaire pour stocker un objet
 
 C'est la première fois que je vois du code en C donc j'espère ne pas dire n'importe quoi mais d'après ce que je comprends le problème vient du fait que l'on va boucler 10 millions de fois sur une fonction qui demande une allocation de mémoire (malloc) pour un entier (int). Je suis pas bien sûr des valeurs concernées mais il semblerait qu'à un moment on risque de rencontrer un problème de manque de mémoire disponible. Auquel cas, soit on obtiendra un pointer NULL en retour, soit l'application va planter (je ne sais pas dans quel cas).
+Je sais pas si c'est pertinent ou lié au fait que tout le code ne soit pas à l'écran mais il manque peut être aussi un return.
 
 ## Rainbow tables
 
