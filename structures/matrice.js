@@ -7,7 +7,7 @@
 
 
 // Complexité du produit matriciel, plusieurs définitions  : nombre d'opérations nécessaires à sa résolution  ?
-// En terme de complexité informatique, le produit matriciel aurait une complexité de 0(n*p)  (on boucle 2 fois, pour les lignes et les colonnes)
+// En terme de complexité informatique, le produit matriciel aurait une complexité de O(n*p)  (on boucle 2 fois, pour les lignes et les colonnes)
 
 // lignes = n;
 // colonnes = p;
@@ -65,4 +65,6 @@ let produitMatriciel = (n,p) =>{
 }
 
 // TODO: meilleur rendu du produit
-console.log( produitMatriciel(3,5), 'complexité: ', complexCounter)
+console.log( produitMatriciel(3,5), "complexité: 0(n*p) et nombre d'opérations: ", complexCounter)
+
+// Complexité est plutôt : O(n*p)  (on boucle 2 fois, pour les lignes et les colonnes)
