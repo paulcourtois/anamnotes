@@ -12,6 +12,7 @@ const initialState = {
   isConnected: false
 };
 
+// Un switch aurait été plus propre que les multiples if
 export default  (state = initialState, action) =>{
   let newState = {...state};
 
@@ -40,6 +41,12 @@ export default  (state = initialState, action) =>{
 
   if (action.type === 'LOAD_MESSAGES'){
     newState= {...state, messages: action.messages.data.messages}
+  }
+
+  if (action.type === 'ADD_MESSAGE'){
+    newState = {
+      ...state, messages: [...state.messages, action.message.data.createMessage]
+    }
   }
   return newState;
 }

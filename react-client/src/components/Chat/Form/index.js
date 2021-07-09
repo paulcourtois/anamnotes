@@ -34,7 +34,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendMessage: (e)=>{
       e.preventDefault();
+
       dispatch({type: 'SEND_MESSAGE'});
+      //on nettoie l'input après envoi du message
+      dispatch({type: 'EDIT_MESSAGE', message:''})
     }
   }
 };
