@@ -14,7 +14,7 @@ const port = 80;
 // Config express
 app.use(bodyParser.json());
 app.use((request,response, next) =>{
-  response.header('Access-Control-Allow-Origin', '*');
+  response.header('Access-Control-Allow-Origin', 'localhost:8080');
   // response.header('Access-Control-Allow-Credentials', true);
   response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   response.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -57,7 +57,7 @@ io.on('connection', (ws)=>{
   // axios vers graphQL pour charger les messages depuis la BDD à la connexion de l'utilisateur afin de les afficher dans son client
   let messagesSaved;
   axios({
-    url: dbURL,
+    url: 'http://localhost:80/graphql',
     method: 'post',
     data: {
       query: `
@@ -73,31 +73,39 @@ io.on('connection', (ws)=>{
   }).then((result)=>{
     messagesSaved = result.data
     io.emit('load_messages', messagesSaved)
+  }).catch((err)=>{
+    console.log(err);
   })
 
   ws.on('send_message', (messageData) => {
     // axios vers graphQL pour enregistrer le message dans la BDD
+    console.log(messageData)
     let newMessage;
+    let newContent = messageData.content;
+    let newAuthor = messageData.author;
     axios({
-      url: dbURL,
+      url: 'http://localhost:80/graphql',
       method: 'post',
       data: {
-        query: `
-        mutation {
+        query: `mutation {
           createMessage(message:
-            {content: ${messageData.content}, author: ${messageData.author}}) {
-              content,
-              author,
-              createdAt
-            }
+          {content:"${newContent}", author: "${newAuthor}"}
+          ){
+            content,
+            author,
+            createdAt
+          }
         }
         `
       }
     }).then((result)=>{
-      console.log(result);
+      //console.log(result);
       newMessage = result.data;
+      io.emit('send_message', newMessage);
+    }).catch((err)=>{
+      console.log(err);
     })
-    io.emit('send_message', newMessage);
+    
   })
 })
 

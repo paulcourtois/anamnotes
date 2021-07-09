@@ -1,7 +1,22 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import {connect} from 'react-redux';
 
+// fonction autoscroll custom
+const useAutoScroll = (constraints) => {
+  const target = useRef();
+  useEffect(
+    ()=>{
+      target.current.scrollIntoView({behavior:'smooth'});
+    },
+    constraints
+  );
+  return target;
+}
 const Messages = ({messages, pseudo}) => {
+
+  //autoscroll en bas de page à chaque nouveau message
+  const bottom = useAutoScroll([messages]);
+
   return <div className="messages-container">
     <ul className="messages">
       {
@@ -17,6 +32,8 @@ const Messages = ({messages, pseudo}) => {
           )
         })
       }
+      <li className="message message--void" ref={bottom}></li>
+
     </ul>
   </div>
 }
