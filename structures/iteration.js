@@ -3,14 +3,13 @@
 // 1.1 Itération
 let counter = 0;
 
-// N la valeur maximale du compteur
+// N la valeur maximale du compteur // si c'est les entiers naturels, je crée une boucle infinie ?
 // p le pas
 // a et b, les multiples que l'on cherche
 
 let increment = (N,p,a,b) =>{
   let result = [];
 
-  //TODO: comment faire pour que le compte s'arrête vraiment à N ?
 
   while (counter < N){
     counter += p;
