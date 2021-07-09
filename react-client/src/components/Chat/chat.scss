@@ -1,0 +1,104 @@
+@use 'src/styles/vars';
+
+/** MESSAGES **/
+
+.messages {
+  flex: 1;
+  height: calc(100% - 50px);
+  background-color: vars.$tertiary-color;
+  overflow-y: scroll;
+}
+
+.message {
+  $this: &;
+
+  margin: 1.5rem;
+  position: relative;
+  
+  &--mine {
+    text-align: right;
+
+    &::before {
+      right: 1.5rem;
+      left: unset !important;
+      border-bottom: 10px solid vars.$primary-color !important;
+      border-right: 10px solid transparent !important;
+      border-top: 10px solid transparent !important;
+      border-left: 10px solid vars.$primary-color !important;
+    }
+
+    #{$this}__author {
+      margin-right: 2rem;
+      margin-left: 0;
+    }
+
+    #{$this}__content {
+      background-color: vars.$primary-color;
+      color: vars.$tertiary-color;
+      padding-right: 2rem;
+    }
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 1.2rem;
+    left: 1.5rem;
+    border-bottom: 10px solid vars.$secondary-color;
+    border-left: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-right: 10px solid vars.$secondary-color
+  }
+
+  &__author {
+    color: vars.$primary-color;
+    margin-bottom: 1rem;
+    margin-left: 2rem;
+    font-weight: bold;
+  }
+
+  &__content {
+    display: inline-block;
+    background: vars.$secondary-color;
+    border-radius: 1rem;
+    padding: 0.75rem;
+    padding-right: 2rem;
+  }
+
+  &--void {
+    width: 0;
+    height: 0;
+    &::before {
+      display: none
+    }
+  }
+}
+
+.form {
+  display: flex;
+  background-color: vars.$tertiary-color;
+
+  &__input {
+    height: 48px;
+    width: calc(100% - 5rem);
+    flex: auto;
+    padding: 1.5rem;
+    border: none;
+    font-size: 1.2rem;
+  }
+
+  &__button {
+    margin: 0.5rem;
+    padding: 0 1rem;
+    border-radius: 2rem;
+    border: none;
+    color: vars.$tertiary-color;
+    font-size: 1.2rem;
+    background-color: vars.$secondary-color;
+
+    &:hover {
+      background-color: vars.$primary-color;
+      color: vars.$tertiary-color;
+    }
+  }
+}

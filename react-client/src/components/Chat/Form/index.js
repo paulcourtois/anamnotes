@@ -6,7 +6,7 @@ const Form = ({message, trackMessage, sendMessage}) => {
     <form className="form" onSubmit={sendMessage}>
       <input
         type="text"
-        className="form_input"
+        className="form__input"
         placeholder="Votre message..."
         value={ message }
         onChange={trackMessage}
