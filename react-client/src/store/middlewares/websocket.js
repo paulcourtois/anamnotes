@@ -4,7 +4,7 @@ const middleware = (store) => (next) => (action) => {
   console.log('Action envoyée vers le store : ', action);
 
   if ( action.type === 'INIT_SOCKET' ){
-    socket = io('http://localhost:8000');
+    socket = io('ws://localhost:8000/', {transports: ['websocket', 'polling', 'flashsocket']});
     socket.on('send_message', (message)=>{
       console.log(message);
       store.dispatch({type: 'ADD_MESSAGE', message})

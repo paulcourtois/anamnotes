@@ -7,6 +7,9 @@ import { Provider as StoreProvider} from 'react-redux';
 import App from 'src/components/App';
 import store from 'src/store'
 
+// on crée le socket de communication
+store.dispatch({type: 'INIT_SOCKET'});
+
 const rootReactElement = <StoreProvider store= {store}>
     <App />
 </StoreProvider>;

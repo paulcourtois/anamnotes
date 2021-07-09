@@ -1,0 +1,38 @@
+@use 'src/styles/vars';
+
+.login-container{
+  margin: 30vh auto;
+  background-color: vars.$primary-color;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  border: vars.$secondary-color 2px solid;
+  border-radius: 8px;
+};
+
+.login-title{
+  font-size: 3rem;
+  text-align: center;
+};
+
+.login-description{
+  font-size: 1.5rem;
+  font-style: italic;
+  text-align: center;
+  margin: 2rem;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.input {
+  font-size: 1.5rem;
+}
+.login-button{
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  background-color: vars.$tertiary-color;
+}

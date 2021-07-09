@@ -18,6 +18,8 @@ const Login = ({
         value={pseudo}
         onChange={trackPseudo}
         required
+        placeholder='Votre pseudo...'
+        autoFocus={true}
         />
       <button type="submit" className="login-button">Se connecter</button>
     </form>

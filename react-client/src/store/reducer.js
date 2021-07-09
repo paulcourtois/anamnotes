@@ -37,5 +37,9 @@ export default  (state = initialState, action) =>{
       message : action.message
     }
   }
+
+  if (action.type === 'LOAD_MESSAGES'){
+    newState= {...state, messages: action.messages.data.messages}
+  }
   return newState;
 }
