@@ -1,5 +1,6 @@
 const Message = require('../../models/message')
 
+// Dans le resolver, nous avons plusieurs fonctions qui permettent de générer une réponse de la part de graphQL. On gère une demande et retourne une réponse. Ici 2 fonctions: récupérer tous les messages pour les afficher aux utilisateurs et une fonction pour ajouter un nouveau message.
 module.exports = {
   messages: async () => {
     try {
