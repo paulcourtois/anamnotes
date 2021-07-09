@@ -1,12 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import './styles.css';
+import './styles.scss';
 
-const App = () => {
+import Login from 'src/components/Login';
+import Chat from 'src/components/Chat';
+
+const App = ({connected}) => {
  
   return <div className="app">
-    <p>hey</p>
+      {connected ? <Chat /> : <Login /> }
   </div>
 }
-  
-export default App;
+
+const mapStateToProps = (state) => {
+  return {connected : state.isConnected}
+};
+const mapDispatchToProps = (dispatch) => {
+  return {}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

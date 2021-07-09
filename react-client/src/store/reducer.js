@@ -6,12 +6,31 @@ const initialState = {
   message: '',
 
   // nom de l'auteur
-  authorName: ''
-}
+  authorName: '',
+
+  //statut de connexion
+  isConnected: false
+};
 
 export default  (state = initialState, action) =>{
   let newState = {...state};
 
+  //LOGIN
+  if (action.type === 'TRACK_PSEUDO'){
+    newState = {
+      ...state,
+      authorName: action.value
+    }
+  }
+
+  if (action.type === 'LOGIN'){
+    newState = {
+      ...state,
+      isConnected: true
+    }
+  }
+
+  //CHAT
   if (action.type === 'EDIT_MESSAGE'){
     newState = {
       ...state,

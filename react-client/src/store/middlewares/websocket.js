@@ -1,7 +1,7 @@
 let socket;
 
 const middleware = (store) => (next) => (action) => {
-  cconsole.log('Action envoyée vers le store : ', action);
+  console.log('Action envoyée vers le store : ', action);
 
   if ( action.type === 'INIT_SOCKET' ){
     socket = io('http://localhost:8000');
