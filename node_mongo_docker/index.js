@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const Server = require('http').Server;
 const socket = require('socket.io');
 
+const axios = require('axios');
+
 const app = express()
 const server = Server(app);
 const io = socket(server);
@@ -21,7 +23,8 @@ app.use((request,response, next) =>{
 
 // Connexion à la DB
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://mongodb:27017/local', { useNewUrlParser: true, useUnifiedTopology: true });
+const dbURL = 'mongodb://mongodb:27017/local'
+mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error'));
 db.once('open', function(){
@@ -44,7 +47,59 @@ app.use('/graphql', graphqlHTTP({
 //   res.send('Hello Anamnotes!')
 // });
 
+/*
+* Socket.io
+*/
 
+io.on('connection', (ws)=>{
+  console.log('>>> socket.io - connected')
+
+  // axios vers graphQL pour charger les messages depuis la BDD à la connexion de l'utilisateur afin de les afficher dans son client
+  let messagesSaved;
+  axios({
+    url: dbURL,
+    method: 'post',
+    data: {
+      query: `
+      {
+        messages {
+          content
+          author
+          createdAt
+        }
+      }
+      `
+    }
+  }).then((result)=>{
+    messagesSaved = result.data
+    io.emit('load_messages', messagesSaved)
+  })
+
+  ws.on('send_message', (messageData) => {
+    // axios vers graphQL pour enregistrer le message dans la BDD
+    let newMessage;
+    axios({
+      url: dbURL,
+      method: 'post',
+      data: {
+        query: `
+        mutation {
+          createMessage(message:
+            {content: ${messageData.content}, author: ${messageData.author}}) {
+              content,
+              author,
+              createdAt
+            }
+        }
+        `
+      }
+    }).then((result)=>{
+      console.log(result);
+      newMessage = result.data;
+    })
+    io.emit('send_message', newMessage);
+  })
+})
 
 
 server.listen(port, () => {
