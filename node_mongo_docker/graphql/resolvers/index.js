@@ -3,7 +3,7 @@ const Message = require('../../models/message')
 module.exports = {
   messages: async () => {
     try {
-      const messagesFetched = await Message.find();
+      const messagesFetched = await Message.find({});
       return messagesFetched.map(message => {
         return {
           ...message._doc,
@@ -19,7 +19,7 @@ module.exports = {
   createMessage: async (args) => {
     try {
       const { content, author } = args.message;
-      const message = new Article({
+      const message = new Message({
         content,
         author,
       })

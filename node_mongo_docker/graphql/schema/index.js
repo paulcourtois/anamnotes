@@ -15,11 +15,11 @@ module.exports = buildSchema(`
   }
 
   type Query{
-    articles:[Article!]
+    messages:[Message!]
   }
 
   type Mutation {
-    createArticle(article:ArticleInput): Article
+    createMessage(message:MessageInput): Message
   }
 
   schema {
